@@ -1,12 +1,12 @@
-from exceptions import AuthorizationError, RegistrationError
+from exceptions import AuthorizationError, RegistrationError, ValidationError
 from authenticator import Authenticator
 
 def main():
     user1 = Authenticator()
     if user1.login is None:
-        print('Пройдите регистрацию')
+        print('Пройдите регистрацию ')
     else:
-        print('Введите логин и пароль для авторизации')
+        print('Введите логин(почта) и пароль для авторизации')
     while True:
         login = input('Введите логин:')
         password = input('Введите пароль:')
@@ -20,9 +20,13 @@ def main():
                 user1.authorize(login,password)
                 print('Авторизация прошла успешно!')
                 break
-        except AuthorizationError:
-            'ошибка авторизации'
-        except RegistrationError:
-            'ошибка регистрации'
+        except AuthorizationError as e:
+            print(e)
+
+        except RegistrationError as e:
+            print(e)
+
+        except ValidationError as e:
+            print(e)
 
 main()
